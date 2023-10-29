@@ -1,0 +1,15 @@
+[tool.poetry]
+authors = ["Your Name <you@example.com>"]
+description = ""
+name = "cpap-data-from-ezshare-sd"
+readme = "README.md"
+version = "0.1.0"
+
+[tool.poetry.dependencies]
+beautifulsoup4 = "^4.12.2"
+python = "^3.12"
+requests = "^2.31.0"
+
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core"]
