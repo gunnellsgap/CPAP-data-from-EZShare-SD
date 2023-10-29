@@ -115,7 +115,7 @@ if not isinstance(START_FROM, (int, str)) or (isinstance(START_FROM, str) and ST
     print("Invalid value for START_FROM. It should be an integer, 'ALL', or a date in 'YYYYMMDD' format.")
     sys.exit(1)
     
-if SHOW_PROGRESS not in [True, False, 'Verbose']:
+if SHOW_PROGRESS not in ['True', 'False', 'Verbose']:
     print("Invalid value for SHOW_PROGRESS. It should be True, False, or 'Verbose'.")
     sys.exit(1)
 
@@ -221,6 +221,8 @@ def check_files(files,url,dir_path):
 
 def controller(url, dir_path): 
     files, dirs = get_files_and_dirs(url)
+    if not os.path.exists(dir_path):
+        os.makedirs(dir_path)
     check_files(files, url, dir_path) # Skip file?
     check_dirs(dirs, url, dir_path) #skip folder?
 
@@ -279,6 +281,10 @@ if USE_NETWORK_SWITCHING:
         sys.exit(0) # Exit the entire process
         
 controller(root_url, root_path)
+
+if os.path.exists(os.path.join(root_path, "STR.EDF")):
+    # Oscar expects STR.edf, not STR.EDF
+    os.rename(os.path.join(root_path, "STR.EDF"), os.path.join(root_path, "STR.edf"))
 
 if USE_NETWORK_SWITCHING:
     print(f"\nExiting {EZSHARE_NETWORK}. Waiting a few seconds for connection to establish...")
